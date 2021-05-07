@@ -7,10 +7,7 @@ import json
 
 def monthToNumber(month):
     """Converts three char month to number"""
-    try:
-        return time.strptime(month, '%b').tm_mon 
-    except:
-        return 0
+    return time.strptime(month, '%b').tm_mon 
 
 
 class Game:
@@ -41,7 +38,7 @@ class Game:
         tempReleaseDate = gameData["release_date"]["date"]
         tempReleaseDate = re.sub(r'[^\w]', ' ', tempReleaseDate).split(" ")
         numMonth = monthToNumber(tempReleaseDate[1])
-        self.releaseDate = datetime.date(int (tempReleaseDate[3], numMonth, tempReleaseDate[0]))
+        self.releaseDate = datetime.date(int (tempReleaseDate[3]), int (numMonth), int(tempReleaseDate[0]))
 
         print(self.name)
         print(self.price)
