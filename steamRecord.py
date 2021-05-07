@@ -21,7 +21,7 @@ class Game:
         self.developer = ""
         self.releaseDate = ""
 
-    def update(self):
+    def load(self):
         "Updates information about the game"
         
         req = urlopen('https://store.steampowered.com/api/appdetails?appids=' + str(self.steam_id))
@@ -48,4 +48,4 @@ class Game:
 
 
 deb = Game(107410)
-deb.update()
+deb.load()
