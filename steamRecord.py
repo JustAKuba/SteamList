@@ -1,5 +1,4 @@
 from urllib.request import urlopen
-from pathlib import Path
 import re
 import datetime
 import time
@@ -31,21 +30,11 @@ class Game:
 
 
         self.name = gameData["name"]
-        self.price = gameData["package_groups"][0]["subs"][0]["price_in_cents_with_discount"]
-        self.price = self.price/100
+        self.price = gameData["package_groups"][0]["subs"][0]["price_in_cents_with_discount"]/100
         self.publisher = gameData["publishers"][0]
         self.developer = gameData["developers"][0]
         tempReleaseDate = gameData["release_date"]["date"]
         tempReleaseDate = re.sub(r'[^\w]', ' ', tempReleaseDate).split(" ")
         numMonth = monthToNumber(tempReleaseDate[1])
         self.releaseDate = datetime.date(int (tempReleaseDate[3]), int (numMonth), int(tempReleaseDate[0]))
-
-        print(self.name)
-        print(self.price)
-        print(self.publisher)
-        print(self.developer)
-        print(self.releaseDate)
-
-
-deb = Game(107410)
-deb.load()
+        
