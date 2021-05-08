@@ -6,6 +6,7 @@ import json
 
 def monthToNumber(month):
     """Converts three char month to number"""
+    
     return time.strptime(month, '%b').tm_mon 
 
 
@@ -13,6 +14,7 @@ class Game:
     
     def __init__(self,steam_id):
         "Represents data object of a game"
+
         self.steam_id = str(steam_id)
         self.name = ""
         self.price = 0.0
@@ -26,8 +28,6 @@ class Game:
         req = urlopen('https://store.steampowered.com/api/appdetails?appids=' + str(self.steam_id))
         rawData = json.load(req)
         gameData = rawData[self.steam_id]["data"]
-
-
 
         self.name = gameData["name"]
         self.price = gameData["package_groups"][0]["subs"][0]["price_in_cents_with_discount"]/100
