@@ -4,16 +4,17 @@ import steamRecord
 class App:
 
     def __init__(self):
-        
         window = gui.Window("Steam List")
         window.initialize()
-
-        debugGame = steamRecord.Game(1239080)
-        debugGame.load()
-
-        window.add_game(debugGame.name, debugGame.price, debugGame.publisher, debugGame.developer, debugGame.releaseDate)
-
+        window.add_controls()
         window.show()
+    
+
+        
+
+
+
+        
 
 
 
@@ -23,3 +24,4 @@ class App:
 
 
 app = App()
+
