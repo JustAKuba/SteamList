@@ -37,4 +37,16 @@ class Game:
         tempReleaseDate = re.sub(r'[^\w]', ' ', tempReleaseDate).split(" ")
         numMonth = monthToNumber(tempReleaseDate[1])
         self.releaseDate = datetime.date(int (tempReleaseDate[3]), int (numMonth), int(tempReleaseDate[0]))
+    def params(self):
+        data = {
+            "steam_id" : self.steam_id,
+            "name" : self.name,
+            "price" : self.price,
+            "publisher" : self.publisher,
+            "developer" : self.developer,
+            "release" : self.releaseDate
+        }
+        return data
+        
+         
         
