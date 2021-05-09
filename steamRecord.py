@@ -4,12 +4,6 @@ import datetime
 import time
 import json
 
-def monthToNumber(month):
-    """Converts three char month to number"""
-    
-    return time.strptime(month, '%b').tm_mon 
-
-
 class Game:
     
     def __init__(self,steam_id):
@@ -33,10 +27,9 @@ class Game:
         self.price = gameData["package_groups"][0]["subs"][0]["price_in_cents_with_discount"]/100
         self.publisher = gameData["publishers"][0]
         self.developer = gameData["developers"][0]
-        tempReleaseDate = gameData["release_date"]["date"]
-        tempReleaseDate = re.sub(r'[^\w]', ' ', tempReleaseDate).split(" ")
-        numMonth = monthToNumber(tempReleaseDate[1])
-        self.releaseDate = datetime.date(int (tempReleaseDate[3]), int (numMonth), int(tempReleaseDate[0]))
+        self.releaseDate = gameData["release_date"]["date"]
+
+    
     def params(self):
         data = {
             "steam_id" : self.steam_id,
