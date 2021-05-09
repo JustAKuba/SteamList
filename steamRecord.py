@@ -51,6 +51,10 @@ class Game:
         except:
             gui.error("Error", "Something went wront. Try again.")
 
+    def save(self):
+        """Saves game into a file."""
+        pass
+            
 
     
     def params(self):
