@@ -21,15 +21,6 @@ class Game:
     def load(self):
         "Updates information about the game"
         
-        req = urlopen('https://store.steampowered.com/api/appdetails?appids=' + str(self.steam_id))
-        rawData = json.load(req)
-        gameData = rawData[self.steam_id]["data"]
-
-        self.name = gameData["name"]
-        self.price = gameData["package_groups"][0]["subs"][0]["price_in_cents_with_discount"]/100
-        self.publisher = gameData["publishers"][0]
-        self.developer = gameData["developers"][0]
-        self.releaseDate = gameData["release_date"]["date"]
         try:
 
             req = urlopen('https://store.steampowered.com/api/appdetails?appids=' + str(self.steam_id))
