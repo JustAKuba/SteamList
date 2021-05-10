@@ -5,6 +5,15 @@ import datetime
 import time
 import json
 import gui
+from pathlib import Path
+
+thisFolderPath = Path(__file__).absolute().parent
+parentFolderPath = thisFolderPath.parent
+
+saveFilePath = Path(thisFolderPath / 'userData')
+
+
+
 
 class Game:
     
@@ -58,6 +67,37 @@ class Game:
             "release" : self.releaseDate
         }
         return data
+
+class GameList:
+
+    def __init__(self):
+        self.list = self.loadFromLocal()
+    
+    def getGames(self):
+        objectList = []
+        for id in self.list:
+            game = Game(steam_id)
+            game.load()
+            objectList.append(game)
+        return objectList
+
+    def saveToLocal(self):
+        try:
+            with open(saveFilePath / 'data.json', 'w') as jsonFile:
+                dumpList = {'steam_ids' : self.list}
+                data = json.dump(jsonFile, dumpList)
+            return True
+        except:
+            return False
+
+       
+
+    def addToList(self, steam_id):
+        try:
+            self.list.append(steam_id)
+        
+
+
         
          
         

@@ -52,7 +52,6 @@ class Window:
 
         game = tk.LabelFrame(self.dataFrame)
         game.pack( fill = "both", expand = "yes")
-        self.gameCount += 1
 
         finName = tk.Label(game, text = name, anchor = "w")
 
@@ -87,8 +86,8 @@ class Window:
         self.window.mainloop()
 
     def newGameWindow(self, _class, title):
-        self.new = tk.Toplevel(self.master)
-        _class(self.new, title)
+        new = tk.Toplevel(self.master)
+        _class(new, title)
         
 
 class reqGameWin:
@@ -96,23 +95,24 @@ class reqGameWin:
     def __init__(self, master, title):
         self.master = master
         self.master.geometry("400x400+200+200")
-        self.frame = tk.LabelFrame(self.master)
-        self.frame.pack()
+        frame = tk.LabelFrame(self.master)
+        frame.pack()
 
         self.entryString = tk.StringVar()
-        self.entr = tk.Entry(self.frame, textvariable = self.entryString)
+        entr = tk.Entry(frame, textvariable = self.entryString)
         
-        self.submit = tk.Button(self.frame, text = "Save", command =self.finishSubmit)
+        submit = tk.Button(frame, text = "add", command =self.finishSubmit)
         
-        self.entr.pack()
-        self.submit.pack()
+        entr.pack()
+        submit.pack()
         
 
     def finishSubmit(self):
         submitString = self.entryString.get()
         
         submittedGame = steamRecord.Game(submitString)
-        submittedGame.save()
+        submittedGame.load()
+        submittedGame.add()
 
         self.master.destroy()
 
@@ -123,9 +123,13 @@ class reqGameWin:
         
 def error(title, text):
     messagebox.showerror(title, text)
+
+def info(title, text):
+    messagebox.showinfo(title, text)
     
 
 
 def win():
     """Open window"""
+    pass
     
