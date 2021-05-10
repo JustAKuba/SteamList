@@ -50,11 +50,7 @@ class Game:
 
         except:
             gui.error("Error", "Something went wront. Try again.")
-
-    def save(self):
-        """Saves game into a file."""
-        pass
-            
+            return False
 
     
     def params(self):
@@ -81,6 +77,17 @@ class GameList:
             objectList.append(game)
         return objectList
 
+    def loadFromLocal(self):
+        try:
+            with open(saveFilePath / 'data.json', 'r') as jsonFile:
+                data = json.load(jsonFile)
+                self.list = data['steam_ids']
+            return True
+        except:
+            return False
+        
+        return self.list
+
     def saveToLocal(self):
         try:
             with open(saveFilePath / 'data.json', 'w') as jsonFile:
@@ -93,8 +100,26 @@ class GameList:
        
 
     def addToList(self, steam_id):
+        """Adds specific steam_id to the list"""
         try:
             self.list.append(steam_id)
+
+
+            return True
+        except:
+            return False
+
+    def removeFromList(self, steam_id):
+        """Removes specific steam_id to the list"""
+        count = 0
+        for id in self.list:
+            if id == steam_id:
+                self.list.pop(count)
+            count += 1
+            
+
+global Game_List
+Game_List = GameList()
         
 
 

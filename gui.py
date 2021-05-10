@@ -2,6 +2,13 @@ import tkinter as tk
 from tkinter import messagebox
 import steamRecord
 
+global Labels
+Labels = {
+    'game_labels' : {
+
+    }
+}
+
 
 
 class Window:
@@ -45,13 +52,16 @@ class Window:
         #Creating frame inside the canvas
         self.dataFrame = tk.Frame(canvas)
         canvas.create_window((0,0), window=self.dataFrame, anchor = "nw")
+        self.dataFrame.pack()
 
 
-    def add_game(self, name, price, publisher, developer, releaseDate):
+    def add_game(self, steam_id, name, price, publisher, developer, releaseDate):
         "Puts the game information into the UI"
 
         game = tk.LabelFrame(self.dataFrame)
         game.pack( fill = "both", expand = "yes")
+        Labels['game_labels'][str(steam_id)] = game
+
 
         finName = tk.Label(game, text = name, anchor = "w")
 
@@ -72,6 +82,13 @@ class Window:
         segCount = 0
         for segment in constructionList:
             segment.pack(anchor = "w")
+
+    def remove_game(self, steam_id):
+        try:
+            Labels['game_labels'][str(steam_id)].destroy
+            return True
+        except:
+            return False
 
     def add_controls(self):
         "Fills the control section"
@@ -95,6 +112,7 @@ class reqGameWin:
     def __init__(self, master, title):
         self.master = master
         self.master.geometry("400x400+200+200")
+
         frame = tk.LabelFrame(self.master)
         frame.pack()
 
@@ -112,13 +130,16 @@ class reqGameWin:
         
         submittedGame = steamRecord.Game(submitString)
         submittedGame.load()
-        submittedGame.add()
+        connectionSuccess = steamRecord.Game_List.addToList(submittedGame.steam_id)
 
-        self.master.destroy()
+        if connectionSuccess:
+            window.add_game(submittedGame.steam_id, submittedGame.name, submittedGame.price, submittedGame.publisher, submittedGame.developer, submittedGame.releaseDate)
+        
+        self.master.destroy
+        
+        
 
-
-
-
+        
 
         
 def error(title, text):
@@ -126,10 +147,14 @@ def error(title, text):
 
 def info(title, text):
     messagebox.showinfo(title, text)
+
+def activate():
+    global window
+    window = Window("Steam List")
+    window.initialize()
+    window.add_controls()
+    window.show()
+    
     
 
-
-def win():
-    """Open window"""
-    pass
     
